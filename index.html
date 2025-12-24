@@ -206,52 +206,42 @@
             padding-bottom: 10px;
         }
 
-        /* 2장 이미지 컨테이너 */
-        .trouble-img-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr; /* 1:1 비율 */
-            gap: 10px;
-            margin: 10px 0;
-            height: 180px; /* 이미지 영역 고정 높이 확보 */
-        }
+        .trouble-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; height: 100%; }
+        .trouble-box { background: #F9FAFB; border: 1px solid #E5E7EB; padding: 20px; border-radius: 12px; display: flex; flex-direction: column; height: 100%; overflow: hidden; }
+        
+        .trouble-header { flex: 0 0 auto; font-weight: 800; font-size: 1.1rem; border-bottom: 2px solid #eee; padding-bottom: 8px; margin-bottom: 12px; }
 
-        .trouble-img-grid img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 6px;
-            border: 1px solid #ddd;
-            background: #eee; /* 이미지 로딩 전 배경색 */
-        }
+        /* [수정] Trouble 이미지 영역: contain + black bg */
+        .trouble-img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; flex: 0 0 45%; background: #000; border-radius: 8px; padding: 5px; margin-bottom: 12px; }
+        .trouble-img-grid img { width: 100%; height: 100%; object-fit: contain; }
 
-        /* 텍스트 영역 */
+        /* 3. 텍스트 영역 (나머지 공간 전체 + 스크롤) */
         .trouble-content-wrapper {
-            flex-grow: 1; /* 남은 공간을 텍스트가 채움 */
+            flex: 1 1 auto; /* 남은 공간 모두 차지 */
+            overflow-y: auto; /* 글자가 많으면 이 안에서만 스크롤 */
+            padding-right: 5px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
         }
 
+        /* 얇은 스크롤바 디자인 (선택 사항) */
+        .trouble-content-wrapper::-webkit-scrollbar {
+            width: 4px;
+        }
+        .trouble-content-wrapper::-webkit-scrollbar-thumb {
+            background: #e5e7eb;
+            border-radius: 10px;
+        }
         .trouble-section {
-            margin-bottom: 5px;
+            margin-bottom: 0; /* gap으로 조절하므로 제거 */
         }
-        
-        .trouble-label {
-            font-size: 0.85rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 4px;
-            display: block;
-        }
-        .trouble-label.prob { color: #DC2626; } /* 빨간색 (문제) */
-        .trouble-label.sol { color: #059669; margin-top: 10px; } /* 초록색 (해결) */
 
         .trouble-text { 
-            font-size: 0.92rem; 
+            font-size: 0.85rem; /* 폰트 크기를 살짝 줄여 공간 확보 */
             color: #4B5563; 
             line-height: 1.5; 
-            text-align: justify; /* 양쪽 정렬로 깔끔하게 */
+            word-break: keep-all; /* 한글 가독성 향상 */
         }
 
         /* --- Specific Slides --- */
@@ -309,6 +299,9 @@
                         </h3>
                         <div style="margin-bottom:15px; border-left:3px solid #E5E7EB; padding-left:15px;">
                             <h4 style="font-size:1.05rem;">인하공업전문대학 | 항공기계공학과</h4>
+                        </div>
+                        <div style="border-left:3px solid #E5E7EB; padding-left:15px;">
+                            <h4 style="font-size:1.05rem;">공군 제20전투비행단 | KF-16 Radar & 정비</h4>
                         </div>
                         <div style="border-left:3px solid #E5E7EB; padding-left:15px;">
                             <h4 style="font-size:1.05rem;">애드인에듀 | AI 자율주행 로봇 개발자 과정 9기 수료</h4>
@@ -411,8 +404,12 @@
                             </div>
                         </div>
                         <div class="role-card">
-                            <div class="role-img-area">
-                                <img src="https://via.placeholder.com/200x140?text=Nav+Tuning" alt="Nav">
+                            <div class="role-img-area" style="height: 32.5%; border-bottom: 1px solid #eee;">
+                                <img src="./assets/images/javis_role_3-1.png" alt="DMC Logic">
+                            </div>
+
+                            <div class="role-img-area" style="height: 32.5%;">
+                                <img src="./assets/images/javis_role_3-2.gif" alt="DMC GUI" >
                             </div>
                             <div class="role-text-area">
                                 <div class="role-title">3. Navigation 최적화</div>
@@ -432,10 +429,11 @@
                         <div>
                             <div class="trouble-header"><i class="fas fa-exclamation-circle" style="color:#DC2626"></i> Narrow Passage Issue</div>
                             <div class="trouble-img-grid">
-                                <img src="https://via.placeholder.com/300x200?text=Problem:+Collision" alt="Collision">
-                                <img src="https://via.placeholder.com/300x200?text=Solution:+Costmap" alt="Costmap">
+                                <img src="./assets/images/javis_solution_1-1.png" alt="Collision" >
+                                <img src="./assets/images/javis_solution_1-2.gif" alt="Costmap">
                             </div>
                         </div>
+                        <div style="height: 1px; background: #eee; margin: 5px 0;"></div>
                         <div class="trouble-content-wrapper">
                             <div class="trouble-section">
                                 <span class="trouble-label prob">Problem</span>
@@ -461,6 +459,7 @@
                                 <img src="https://via.placeholder.com/300x200?text=MPPI:+Path+Gen" alt="MPPI Path">
                             </div>
                         </div>
+                        <div style="height: 1px; background: #eee; margin: 5px 0;"></div>
                         <div class="trouble-content-wrapper">
                             <div class="trouble-section">
                                 <span class="trouble-label prob">Problem</span>
@@ -484,7 +483,7 @@
             <h2 class="slide-header">02. ROOMIE (호텔 실내 서비스 로봇)</h2>
             <div class="split-layout">
                 <div class="left-panel">
-                    <img src="./assets/images/project_roomie.png" class="project-img" onerror="this.src='https://via.placeholder.com/400x300?text=ROOMIE+Elevator'">
+                    <img src="./assets/images/project_roomie2.gif.png\" class="project-img" onerror="this.src='https://via.placeholder.com/400x300?text=ROOMIE+Elevator'">
                     <div class="meta-box">
                         <div class="meta-row"><span class="meta-label">Team</span> <span class="meta-value">4인 프로젝트</span></div>
                         <div class="meta-row"><span class="meta-label">Period</span> <span class="meta-value">2025.07.07 - 08.13</span></div>
