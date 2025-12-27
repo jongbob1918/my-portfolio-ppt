@@ -509,8 +509,8 @@
                                 <img src="https://via.placeholder.com/200x140?text=Inverse+Kinematics" alt="IK">
                             </div>
                             <div class="role-text-area">
-                                <div class="role-title">1. Inverse Kinematics (IK)</div>
-                                <p class="role-desc"> 카메라 좌표(Vision)와 엔드 이펙터(EE)사이에 켈리브레이션 행렬과 변환 행렬을 설정하여 좌표를 변환하고 엔드 이펙터(EE)와 로봇팔 베이스의  관절 각도(Joint)를 ikpy와 휴리스틱 기반으로 관절 각도 계산</p>
+                                <div class="role-title">로봇 팔 기구학 및 진입 자세 설계</div>
+                                <p class="role-desc">4-DOF 로봇의 물리적 한계를 고려한 <strong>URDF 모델링</strong>과 IK 엔진을 구축했습니다. 특히 좁은 엘리베이터 내에서 버튼 진입 시 시선을 고정하는 <strong>Look-at 로직</strong>을 구현하여 조작을 위한 최적의 자세를 산출했습니다.</p>
                             </div>
                         </div>
                         <div class="role-card">
@@ -649,18 +649,21 @@
             </div>
         </div>
 
+
+
         <div class="slide" id="slide-8">
             <h2 class="slide-header">03. FALCON - Technical Challenges</h2>
             <div class="full-layout">
                 <div class="trouble-container">
                     <div class="trouble-box">
                         <div>
-                            <div class="trouble-header"><i class="fas fa-map-marked-alt" style="color:#DC2626"></i> 2D to 3D Accuracy</div>
+                            <div class="trouble-header"><i class="fas fa-exclamation-circle" style="color:#DC2626"></i> Narrow Passage Issue</div>
                             <div class="trouble-img-grid">
-                                <img src="https://via.placeholder.com/300x200?text=CCTV+View" alt="CCTV View">
-                                <img src="https://via.placeholder.com/300x200?text=Map+Mapping" alt="Map View">
+                                <img src="./assets/images/javis_solution_1-1.png" alt="Collision" >
+                                <img src="./assets/images/javis_solution_1-2.gif" alt="Costmap">
                             </div>
                         </div>
+                        <div style="height: 1px; background: #eee; margin: 5px 0;"></div>
                         <div class="trouble-content-wrapper">
                             <div class="trouble-section">
                                 <span class="trouble-label prob">Problem</span>
@@ -680,12 +683,13 @@
 
                     <div class="trouble-box">
                         <div>
-                            <div class="trouble-header"><i class="fas fa-database" style="color:#DC2626"></i> Data Scarcity</div>
+                            <div class="trouble-header"><i class="fas fa-route" style="color:#DC2626"></i> Local Minima (Stuck)</div>
                             <div class="trouble-img-grid">
-                                <img src="https://via.placeholder.com/300x200?text=Real+Environment" alt="Real Env">
-                                <img src="https://via.placeholder.com/300x200?text=Blender+Synthetic" alt="Synthetic Data">
+                                <img src="https://via.placeholder.com/300x200?text=DWB:+Stuck" alt="DWB Stuck">
+                                <img src="https://via.placeholder.com/300x200?text=MPPI:+Path+Gen" alt="MPPI Path">
                             </div>
                         </div>
+                        <div style="height: 1px; background: #eee; margin: 5px 0;"></div>
                         <div class="trouble-content-wrapper">
                             <div class="trouble-section">
                                 <span class="trouble-label prob">Problem</span>
