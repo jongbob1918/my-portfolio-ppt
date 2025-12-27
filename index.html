@@ -175,75 +175,88 @@
             overflow-y: auto; /* 혹시 내용이 넘치면 스크롤 */
         }
 
-        /* Troubleshooting Box Styles (Page 2, 6, 8) - Revised */
-        .trouble-container { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 25px; 
-            height: 100%; /* 부모 높이 꽉 채움 */
+        /* --- 트러블슈팅 전용 3단계 카드 레이아웃 --- */
+        .trouble-step-container {
+            display: flex;
+            gap: 20px;
+            height: 100%;
+            align-items: stretch;
         }
 
-        .trouble-box { 
-            background: #F9FAFB;
+        .step-card {
+            flex: 1;
+            background: #ffffff;
             border: 1px solid #E5E7EB;
-            padding: 25px; 
-            border-radius: 12px; 
-            height: 100%; 
-            display: flex;           /* Flexbox 적용 */
-            flex-direction: column;  /* 위에서 아래로 배치 */
-            justify-content: space-between; /* 내용물 사이 간격 균등 분배 */
-        }
-
-        .trouble-header { 
-            font-weight: 800; 
-            color: #1F2937;
-            margin-bottom: 15px; 
-            font-size: 1.15rem; 
-            display: flex; 
-            align-items: center; 
-            gap: 10px;
-            border-bottom: 2px solid #E5E7EB;
-            padding-bottom: 10px;
-        }
-
-        .trouble-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; height: 100%; }
-        .trouble-box { background: #F9FAFB; border: 1px solid #E5E7EB; padding: 20px; border-radius: 12px; display: flex; flex-direction: column; height: 100%; overflow: hidden; }
-        
-        .trouble-header { flex: 0 0 auto; font-weight: 800; font-size: 1.1rem; border-bottom: 2px solid #eee; padding-bottom: 8px; margin-bottom: 12px; }
-
-        /* [수정] Trouble 이미지 영역: contain + black bg */
-        .trouble-img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; flex: 0 0 45%; background: #000; border-radius: 8px; padding: 5px; margin-bottom: 12px; }
-        .trouble-img-grid img { width: 100%; height: 100%; object-fit: contain; }
-
-        /* 3. 텍스트 영역 (나머지 공간 전체 + 스크롤) */
-        .trouble-content-wrapper {
-            flex: 1 1 auto; /* 남은 공간 모두 차지 */
-            overflow-y: auto; /* 글자가 많으면 이 안에서만 스크롤 */
-            padding-right: 5px;
+            border-radius: 12px;
+            overflow: hidden; /* 내부 요소가 삐져나오지 않게 */
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        /* 얇은 스크롤바 디자인 (선택 사항) */
-        .trouble-content-wrapper::-webkit-scrollbar {
-            width: 4px;
-        }
-        .trouble-content-wrapper::-webkit-scrollbar-thumb {
-            background: #e5e7eb;
-            border-radius: 10px;
-        }
-        .trouble-section {
-            margin-bottom: 0; /* gap으로 조절하므로 제거 */
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+            border-color: var(--primary-color);
         }
 
-        .trouble-text { 
-            font-size: 0.85rem; /* 폰트 크기를 살짝 줄여 공간 확보 */
-            color: #4B5563; 
-            line-height: 1.5; 
-            word-break: keep-all; /* 한글 가독성 향상 */
+        /* 헤더 영역: Role 타이틀과 유사한 느낌 */
+        .step-header {
+            padding: 15px;
+            font-size: 1rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid #F3F4F6;
+        }
+        .header-prob { color: #DC2626; background: #FFF5F5; }
+        .header-analysis { color: #2563EB; background: #EFF6FF; }
+        .header-sol { color: #059669; background: #ECFDF5; }
+
+        /* 이미지 영역: 규격화 및 비율 유지 */
+        .step-img-box {
+            width: 100%;
+            height: 200px; /* 고정 높이로 규격 통일 */
+            background: #F9FAFB; /* 이미지 여백 시 깔끔한 배경 */
+            border-bottom: 1px solid #F3F4F6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
         }
 
+        .step-img-box img {
+            max-width: 100%;
+            max-height: 100%;
+            /* [핵심] 사진 비율 유지 및 선명도 */
+            object-fit: contain; 
+            image-rendering: -webkit-optimize-contrast;
+        }
+
+        /* 텍스트 영역 */
+        .step-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .step-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 10px;
+        }
+
+        .step-desc {
+            font-size: 0.88rem;
+            line-height: 1.6;
+            color: #4B5563;
+            word-break: keep-all;
+            text-align: justify;
+        }
         /* --- Specific Slides --- */
         #slide-1 {
             display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
@@ -299,9 +312,6 @@
                         </h3>
                         <div style="margin-bottom:15px; border-left:3px solid #E5E7EB; padding-left:15px;">
                             <h4 style="font-size:1.05rem;">인하공업전문대학 | 항공기계공학과</h4>
-                        </div>
-                        <div style="border-left:3px solid #E5E7EB; padding-left:15px;">
-                            <h4 style="font-size:1.05rem;">공군 제20전투비행단 | KF-16 Radar & 정비</h4>
                         </div>
                         <div style="border-left:3px solid #E5E7EB; padding-left:15px;">
                             <h4 style="font-size:1.05rem;">애드인에듀 | AI 자율주행 로봇 개발자 과정 9기 수료</h4>
@@ -413,69 +423,58 @@
                             </div>
                             <div class="role-text-area">
                                 <div class="role-title">3. Navigation 최적화</div>
-                                <p class="role-desc">Navigation Stack 분석을 기반으로 Costmap 파라미터 튜닝 및 다양한 컨트롤러 비교 검증을 수행하여 좁은 통로와 복잡한 서가 환경에서의 주행 성능을 최적화</p>
+                                <p class="role-desc">Navigation Stack 분석을 기반으로 Costmap 파라미터 튜닝 및 다양한 컨트롤러 비교 검증을 수행하여 좁은 통로와 복잡한 서가 공간에서의 주행 성능을 최적화</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="slide" id="slide-4">
             <h2 class="slide-header">01. JAVIS - Trouble Shooting</h2>
             <div class="full-layout">
-                <div class="trouble-container">
-                    <div class="trouble-box">
-                        <div>
-                            <div class="trouble-header"><i class="fas fa-exclamation-circle" style="color:#DC2626"></i> Narrow Passage Issue</div>
-                            <div class="trouble-img-grid">
-                                <img src="./assets/images/javis_solution_1-1.png" alt="Collision" >
-                                <img src="./assets/images/javis_solution_1-2.gif" alt="Costmap">
-                            </div>
+                <div class="trouble-step-container">
+                    
+                    <div class="step-card">
+                        <div class="step-header header-prob"><i class="fas fa-exclamation-triangle"></i> 문제점</div>
+                        <div class="step-img-box">
+                            <img src="./assets/images/javis_solution_1-1.gif" style="width: auto;" alt="Collision Issue">
                         </div>
-                        <div style="height: 1px; background: #eee; margin: 5px 0;"></div>
-                        <div class="trouble-content-wrapper">
-                            <div class="trouble-section">
-                                <span class="trouble-label prob">Problem</span>
-                                <div class="trouble-text">
-                                    로봇 폭과 유사한 좁은 통로 진입 시, Inflation Radius가 크면 진입 불가 판정을 내리고 작게 하면 벽면 충돌 위험이 발생하는 딜레마 발생.
-                                </div>
-                            </div>
-                            <div class="trouble-section">
-                                <span class="trouble-label sol">Solution</span>
-                                <div class="trouble-text">
-                                    • <strong>Smac Planner Hybrid:</strong> 로봇의 Footprint와 회전 반경을 고려한 경로 생성<br>
-                                    • <strong>Cost Scaling:</strong> 좁은 통로를 '진입 불가'가 아닌 '고비용 구역'으로 설정하여 안전 마진을 확보하며 주행 성공
-                                </div>
-                            </div>
+                        <div class="step-content">
+                            <div class="step-title">좁은 통로 및 복잡한 공간 주행 시</div>
+                            <p class="step-desc">• cost map에서 inflation layer을 높이면 좁은 길 진입 실패 및 Recovery Loop 발생, 낮추면 벽면 충돌 위험 증가<br><br>
+                            • 직사각형 차동 로봇이 장애물이나 협소한 공간에 있을때 빠져 나오지 못하거나 그로인해 회복동작(Rotate/costmap reset)중 장애물과 빈번한 충돌 발생</p>
                         </div>
                     </div>
 
-                    <div class="trouble-box">
-                        <div>
-                            <div class="trouble-header"><i class="fas fa-route" style="color:#DC2626"></i> Local Minima (Stuck)</div>
-                            <div class="trouble-img-grid">
-                                <img src="https://via.placeholder.com/300x200?text=DWB:+Stuck" alt="DWB Stuck">
-                                <img src="https://via.placeholder.com/300x200?text=MPPI:+Path+Gen" alt="MPPI Path">
-                            </div>
-                        </div>
-                        <div style="height: 1px; background: #eee; margin: 5px 0;"></div>
-                        <div class="trouble-content-wrapper">
-                            <div class="trouble-section">
-                                <span class="trouble-label prob">Problem</span>
-                                <div class="trouble-text">
-                                    복잡한 서가 환경에서 DWB 제어기가 단일 최적 경로만 고집하다가 장애물에 갇혀 회전만 반복하는 현상(Recovery Loop) 발생.
-                                </div>
-                            </div>
-                            <div class="trouble-section">
-                                <span class="trouble-label sol">Solution</span>
-                                <div class="trouble-text">
-                                    • <strong>MPPI Controller:</strong> 수천 개의 경로를 샘플링하여 동적으로 최적 경로를 탐색<br>
-                                    • <strong>Result:</strong> 복잡한 환경에서는 감속 회피, 넓은 곳에서는 고속 주행하는 유연성 확보
-                                </div>
-                            </div>
+                    <div class="step-card">
+                        <div class="step-header header-analysis"><i class="fas fa-search"></i> 문제분석</div>
+                        <div class="step-content">
+                            <div class="step-title">기구학적 불일치</div>
+                            <p class="step-desc">• NavFn Planner가 로봇의 실제 크기를 무시한 '점 모델' 경로를 생성하여 복잡하거나, 좁은공간 내에서 직사각형 로봇이 경로를 추종하기 힘듬<br>
+                            <div class="step-title">센서 인지 사각지대</div>
+                            <p class="step-desc">•  LiDAR 필터링 범위가 실제 로봇 모델보다 넓게 설정되어, 코앞의 장애물을 노이즈로 판단해 무시해 rotate나 costmap 초기화 시 근접 장애물과 충돌 되는 현상을 확인<br>
+                            <div class="step-title">제어 알고리즘 제약</div>
+                            <p class="step-desc">• DWB Controller의 단순 속도 샘플링 방식이 복잡한 공간에서 유효한 회피 궤적을 찾지 못하고 주행이 정체되는 한계가 있음</p>
                         </div>
                     </div>
+
+                    <div class="step-card">
+                        <div class="step-header header-sol"><i class="fas fa-check-circle"></i> 해결방안</div>
+                        <div class="step-img-box">
+                            <img src="./assets/images/javis_role_3-2.gif" alt="Navigation Result">
+                        </div>
+                        <div class="step-content">
+                            <div class="step-title">Smac Planner Hybrid 도입</div>
+                            <p class="step-desc">로봇 형상(직사각형)과 회전 반경/후진가능 여부을 반영해 경로를 생성하여 좀더 복잡한공간에서 안정적으로 주행 가능하도록 개선</p>
+                             <div class="step-title">센서/cost 최적화</div>
+                            <p class="step-desc">LiDAR 필터 범위 재설계 및 코스트맵 가중치 튜닝으로 중앙 주행 유도하면서 좁은 공간도 안정적으로 주행 가능하도록 최적화</p>
+                             <div class="step-title">MPPI Controller 전환</div>
+                            <p class="step-desc">샘플링 기반 모델 예측 제어를 통해 장애물 밀집 구간에서의 부드러운 속도 조절 및 주행 유연성이 향상됨</p>
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -483,7 +482,8 @@
             <h2 class="slide-header">02. ROOMIE (호텔 실내 서비스 로봇)</h2>
             <div class="split-layout">
                 <div class="left-panel">
-                    <img src="./assets/images/project_roomie2.gif.png\" class="project-img" onerror="this.src='https://via.placeholder.com/400x300?text=ROOMIE+Elevator'">
+                    <img src="./assets/images/project_roomie.png" class="project-img" style="width: auto; height: auto;">
+                    <img src="./assets/images/project_roomie2.gif" class="project-img" style="width: auto; height: auto;">
                     <div class="meta-box">
                         <div class="meta-row"><span class="meta-label">Team</span> <span class="meta-value">4인 프로젝트</span></div>
                         <div class="meta-row"><span class="meta-label">Period</span> <span class="meta-value">2025.07.07 - 08.13</span></div>
@@ -493,9 +493,8 @@
                         </div>
                     </div>
                     <div class="intent-box">
-                        <div class="intent-title">Project Intent</div>
                         <p class="intent-text">
-                            호텔 객실 배송 서비스와 기존 엘리베이터 연동 API 의존성을 탈피하고 별도의 통신 인프라 없이 로봇이 영상을 인식하고 물리적으로 버튼을 조작하여 층간 이동이 가능한 독립적 주행 시스템을 목표로 개발
+                            호텔 객실 배송 서비스와 기존 엘리베이터 연동 API 방식을 사용하지 않고 로봇이 인식/판단하여 물리적으로 버튼을 조작 후 층간 이동하는 시스템을 목표로 개발
                         </p>
                     </div>
                 </div>
@@ -506,89 +505,85 @@
                     <div class="role-grid">
                         <div class="role-card">
                             <div class="role-img-area">
-                                <img src="https://via.placeholder.com/200x140?text=Inverse+Kinematics" alt="IK">
+                                <img src="./assets/images/roomie_role_1-1.png" alt="IK Logic Flow">
                             </div>
                             <div class="role-text-area">
                                 <div class="role-title">로봇 팔 기구학 및 진입 자세 설계</div>
-                                <p class="role-desc">4-DOF 로봇의 물리적 한계를 고려한 <strong>URDF 모델링</strong>과 IK 엔진을 구축했습니다. 특히 좁은 엘리베이터 내에서 버튼 진입 시 시선을 고정하는 <strong>Look-at 로직</strong>을 구현하여 조작을 위한 최적의 자세를 산출했습니다.</p>
+                                <p class="role-desc">
+                                 4-DOF 기구적 제약 기반 <strong>URDF 모델링</strong> 설계, 비주얼 서보잉 시 타겟 시야 확보를 위해 <strong>방향 제어 로직을 통합한 IK 연산</strong> 구현
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="role-card">
+                            <div class="role-img-area">
+                                <img src="./assets/images/roomie_role_2-1.png" alt="Coordinate Transform">
+                            </div>
+                            <div class="role-text-area">
+                                <div class="role-title">비전 기반 3D 포즈 추정 및 정밀 조작</div>
+                                <p class="role-desc">
+                                YOLO 기반 2D 픽셀의 <strong>3D 공간 좌표 변환</strong> 처리, 실시간 오차 보정을 위한 <strong>비주얼 서보잉 루프</strong> 설계, 하드웨어 유격을 알고리즘으로 보완하는 제어 환경 구축
+                                </p>
                             </div>
                         </div>
                         <div class="role-card">
-                            <div class="role-img-area">
-                                <img src="https://via.placeholder.com/200x140?text=Visual+Servoing" alt="Visual Servoing">
+                            <div class="role-img-area" style="height: 32.5%; border-bottom: 1px solid #eee;">
+                                <img src="./assets/images/roomie_role_3-1.gif" alt="Jira Board">
+                            </div>
+                            <div class="role-img-area" style="height: 32.5%;">
+                                <img src="./assets/images/roomie_role_3-2.gif" alt="Sprint List">
                             </div>
                             <div class="role-text-area">
-                                <div class="role-title">2. Visual Servoing</div>
-                                <p class="role-desc">카메라로 인식한 2D 버튼 좌표를 OpenCV라이브러리를 사용하여 3D 공간 좌표로 실시간 변환하여 로봇팔이 목표를 추종하도록 제어</p>
-                            </div>
-                        </div>
-                        <div class="role-card">
-                            <div class="role-img-area">
-                                <img src="https://via.placeholder.com/200x140?text=Jira+Agile" alt="PM">
-                            </div>
-                            <div class="role-text-area">
-                                <div class="role-title">3. Agile & PM</div>
-                                <p class="role-desc">Jira를 도입하여 스프린트 단위로 이슈를 관리하여 프로젝트 개발 가속도를 높임</p>
+                                <div class="role-title">프로젝트 일정 관리</div>
+                                <p class="role-desc"> Jira를 도입하여 각 파트의 개발 진척도를 시각화하고 스프린트 단위로 이슈를 관리</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="slide" id="slide-6">
-            <h2 class="slide-header">02. ROOMIE - Technical Challenges</h2>
+            <h2 class="slide-header">02. ROOMIE - Trouble Shooting</h2>
             <div class="full-layout">
-                <div class="trouble-container">
-                    <div class="trouble-box">
-                        <div>
-                            <div class="trouble-header"><i class="fas fa-wave-square" style="color:#DC2626"></i> Jerk & Vibration</div>
-                            <div class="trouble-img-grid">
-                                <img src="https://via.placeholder.com/300x200?text=Before:+Shaking" alt="Vibration">
-                                <img src="https://via.placeholder.com/300x200?text=After:+S-Curve" alt="S-Curve Graph">
-                            </div>
+                <div class="trouble-step-container">
+                    
+                    <div class="step-card">
+                        <div class="step-header header-prob"><i class="fas fa-exclamation-triangle"></i> 문제점</div>
+                        <div class="step-img-box">
+                            <img src="./assets/images/roomie_solution_1-1.gif" alt="Vibration Issue">
                         </div>
-                        <div class="trouble-content-wrapper">
-                            <div class="trouble-section">
-                                <span class="trouble-label prob">Problem</span>
-                                <div class="trouble-text">
-                                    저가형 서보모터 특성상 동작 시작/정지 시 급격한 가속도 변화(Jerk)로 인해 엔드 이펙터가 심하게 떨려 버튼 누르기 실패.
-                                </div>
-                            </div>
-                            <div class="trouble-section">
-                                <span class="trouble-label sol">Solution</span>
-                                <div class="trouble-text">
-                                    • <strong>S-Curve Profiling:</strong> 속도 프로파일을 가우시안 곡선 형태로 설계하여 가/감속 충격 완화<br>
-                                    • <strong>Result:</strong> 잔진동을 90% 이상 제거하고 기어 마모 방지 효과 확인
-                                </div>
-                            </div>
+                        <div class="step-content">
+                            <div class="step-title">기구적 불안정성 및 제어 지연</div>
+                            <p class="step-desc">
+                                • 급격한 가감속 시 로봇 끝단 진동으로 인해 비전 인식 및 타격 정밀도 저하 발생 <br><br>
+                            </p>
                         </div>
                     </div>
 
-                    <div class="trouble-box">
-                        <div>
-                            <div class="trouble-header"><i class="fas fa-bullseye" style="color:#DC2626"></i> Offset Error</div>
-                            <div class="trouble-img-grid">
-                                <img src="https://via.placeholder.com/300x200?text=Cam+View" alt="Camera View">
-                                <img src="https://via.placeholder.com/300x200?text=Real+Arm+Pos" alt="Arm Position">
-                            </div>
-                        </div>
-                        <div class="trouble-content-wrapper">
-                            <div class="trouble-section">
-                                <span class="trouble-label prob">Problem</span>
-                                <div class="trouble-text">
-                                    카메라 렌즈 왜곡과 설치 위치 오차로 인해, 비전 센서가 인식한 버튼 좌표와 실제 로봇 팔이 타격하는 위치가 어긋남.
-                                </div>
-                            </div>
-                            <div class="trouble-section">
-                                <span class="trouble-label sol">Solution</span>
-                                <div class="trouble-text">
-                                    • <strong>Hand-Eye Matrix:</strong> $T_{tool \to cam}$ 변환 행렬을 계산하여 물리적 오프셋 보정<br>
-                                    • <strong>Two-Step Control:</strong> '중심 정렬(Align)' 후 '전진(Push)'하는 2단계 제어로 정확도 향상
-                                </div>
-                            </div>
+                    <div class="step-card">
+                        <div class="step-header header-analysis"><i class="fas fa-search"></i> 문제분석</div>
+                        <div class="step-content">
+                            <div class="step-title">관성 및 기구적 한계</div>
+                            <p class="step-desc">• 저가형 서보모터/프레임의 한계로 인해 정지 순간 관성 충격이 기구부 전체로 전달됨</p>
+                            <div class="step-title">MCU의 실시간성 문제</div>
+                            <p class="step-desc">• 가속도 프로파일 적용시 MCU의 단일 루프에서 시리얼 통신 대기 시간(Blocking)이 모터 PWM 제어 주기를 침범하여 실시간성 저하</p>
                         </div>
                     </div>
+
+                    <div class="step-card">
+                        <div class="step-header header-sol"><i class="fas fa-check-circle"></i> 해결방안</div>
+                        <div class="step-img-box">
+                            <img src="./assets/images/roomie_solution_3-1.gif" alt="Motion Optimization">
+                        </div>
+                        <div class="step-content">
+                            <div class="step-title">모션 프로파일 최적화 (S-Curve)</div>
+                            <p class="step-desc">가우시안 오차 함수(erf) 기반 <strong>S-Curve</strong>를 적용해 가속도 변화를 부드럽게 설계, 잔진동 30% 이상 감소 및 기어 마모 억제</p>
+                            
+                            <div class="step-title">FreeRTOS 기반 작업 분산</div>
+                            <p class="step-desc"><strong>Task Pinning</strong>을 통해 통신과 제어를 듀얼 코어에 각각 할당, 부하와 관계없이 <strong>10ms의 일정한 제어 주기</strong> 보장</p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -597,7 +592,8 @@
             <h2 class="slide-header">03. FALCON (항공 운항 AI 안전 서비스)</h2>
             <div class="split-layout">
                 <div class="left-panel">
-                    <img src="./assets/images/project_falcon.png" class="project-img" onerror="this.src='https://via.placeholder.com/400x300?text=FALCON+Detection'">
+                    <img src="./assets/images/project_falcon.png" class="project-img" style="width: auto; height: auto;">
+                    <img src="./assets/images/project_falcon2.gif" class="project-img" style="width: auto; height: auto;">
                     <div class="meta-box">
                         <div class="meta-row"><span class="meta-label">Team</span> <span class="meta-value">4인 프로젝트</span></div>
                         <div class="meta-row"><span class="meta-label">Period</span> <span class="meta-value">2025.05.26 - 07.03</span></div>
@@ -606,7 +602,6 @@
                         </div>
                     </div>
                     <div class="intent-box">
-                        <div class="intent-title">Project Intent</div>
                         <p class="intent-text">
                             활주로 내 이물질(FOD)과 무단 침입자를 CCTV로 실시간 감지하고 관제사가 즉각 대응할 수 있도록 <strong>위험물의 정확한 구역 위치(GPS/Map 좌표)</strong>를 제공하는 관제 시스템을 구축
                         </p>
@@ -618,17 +613,23 @@
                     
                     <div class="role-grid">
                         <div class="role-card">
-                            <div class="role-img-area">
-                                <img src="https://via.placeholder.com/200x140?text=Object+Tracking" alt="Tracking">
+                            <div class="role-img-area" style="height: 32.5%; border-bottom: 1px solid #eee;">
+                                <img src="./assets/images/falcon_role_1-1.gif" alt="Jira Board">
                             </div>
+                            <div class="role-img-area" style="height: 32.5%;">
+                                <img src="./assets/images/falcon_role_1-2.gif" alt="Sprint List">
+                            </div> 
                             <div class="role-text-area">
                                 <div class="role-title">1. 정밀 탐지 및 추적</div>
                                 <p class="role-desc">YOLO v8 커스텀 학습(90%↑) 및 ByteTrack 알고리즘을 적용하여 객체 ID 유지 및 이동 경로 추적 구현</p>
                             </div>
                         </div>
                         <div class="role-card">
-                            <div class="role-img-area">
-                                <img src="https://via.placeholder.com/200x140?text=Coordinate+Trans" alt="Coordinates">
+                            <div class="role-img-area" style="height: 32.5%; border-bottom: 1px solid #eee;">
+                                <img src="./assets/images/falcon_role_2-1.png" alt="Jira Board">
+                            </div>
+                            <div class="role-img-area" style="height: 32.5%;">
+                                <img src="./assets/images/falcon_role_2-2.gif" alt="Sprint List">
                             </div>
                             <div class="role-text-area">
                                 <div class="role-title">2. 실좌표 변환 시스템</div>
@@ -636,9 +637,10 @@
                             </div>
                         </div>
                         <div class="role-card">
-                            <div class="role-img-area">
-                                <img src="https://via.placeholder.com/200x140?text=Worker+Classification" alt="Classification">
+                            <div class="role-img-area" style="height: 65%; border-bottom: 1px solid #eee;">
+                                <img src="./assets/images/falcon_role_3-1.gif" alt="Jira Board">
                             </div>
+
                             <div class="role-text-area">
                                 <div class="role-title">3. 작업자 인가 여부 식별</div>
                                 <p class="role-desc">HSV 색상 분할 기법을 적용하여 형광 조끼 착용 여부를 판단, 인가된 작업자와 침입자를 구분</p>
@@ -649,63 +651,52 @@
             </div>
         </div>
 
-
-
         <div class="slide" id="slide-8">
-            <h2 class="slide-header">03. FALCON - Technical Challenges</h2>
+            <h2 class="slide-header">03. FALCON - Trouble Shooting</h2>
             <div class="full-layout">
-                <div class="trouble-container">
-                    <div class="trouble-box">
-                        <div>
-                            <div class="trouble-header"><i class="fas fa-exclamation-circle" style="color:#DC2626"></i> Narrow Passage Issue</div>
-                            <div class="trouble-img-grid">
-                                <img src="./assets/images/javis_solution_1-1.png" alt="Collision" >
-                                <img src="./assets/images/javis_solution_1-2.gif" alt="Costmap">
-                            </div>
+                <div class="trouble-step-container">
+                    
+                    <div class="step-card">
+                        <div class="step-header header-prob"><i class="fas fa-exclamation-triangle"></i> 문제점</div>
+                        <div class="step-img-box">
+                            <img src="./assets/images/falcon_solution_1-1.png" alt="CCTV View">
                         </div>
-                        <div style="height: 1px; background: #eee; margin: 5px 0;"></div>
-                        <div class="trouble-content-wrapper">
-                            <div class="trouble-section">
-                                <span class="trouble-label prob">Problem</span>
-                                <div class="trouble-text">
-                                    CCTV 화면(2D 픽셀)만으로는 활주로 내 객체의 실제 거리와 정확한 GPS 좌표를 파악할 수 없어 관제 데이터로 활용 불가.
-                                </div>
-                            </div>
-                            <div class="trouble-section">
-                                <span class="trouble-label sol">Solution</span>
-                                <div class="trouble-text">
-                                    • <strong>Homography:</strong> 활주로 4개 지점 ArUco 마커를 기준점으로 투영 변환 행렬 산출<br>
-                                    • <strong>Result:</strong> 픽셀 좌표를 실제 미터(Meter) 단위로 변환, 오차 범위 ±0.5cm 정밀도 확보
-                                </div>
-                            </div>
+                        <div class="step-content">
+                            <div class="step-title">공간 좌표 인지 한계</div>
+                            <p class="step-desc">• CCTV의 2D 픽셀 좌표만으로는 객체의 실제 위치나 어디구역인지 파악 불가<br>
+                            <div class="step-title">테스트 시 정확도 많이 떨어짐</div>
+                            <p class="step-desc">• 오픈 데이터셋으로 학습시 테스트하는 환경에서 정확도가 떨어짐<br>
+
                         </div>
                     </div>
 
-                    <div class="trouble-box">
-                        <div>
-                            <div class="trouble-header"><i class="fas fa-route" style="color:#DC2626"></i> Local Minima (Stuck)</div>
-                            <div class="trouble-img-grid">
-                                <img src="https://via.placeholder.com/300x200?text=DWB:+Stuck" alt="DWB Stuck">
-                                <img src="https://via.placeholder.com/300x200?text=MPPI:+Path+Gen" alt="MPPI Path">
-                            </div>
+                    <div class="step-card">
+                        <div class="step-header header-analysis"><i class="fas fa-search"></i> 문제분석</div>
+                        <div class="step-img-box">
+                            <img src="./assets/images/falcon_solution_2-1.gif"  alt="Solution Result">
                         </div>
-                        <div style="height: 1px; background: #eee; margin: 5px 0;"></div>
-                        <div class="trouble-content-wrapper">
-                            <div class="trouble-section">
-                                <span class="trouble-label prob">Problem</span>
-                                <div class="trouble-text">
-                                    보안 구역인 활주로에 실제 이물질(FOD)을 뿌리거나 침입 상황을 연출하여 학습 데이터를 수집하는 것이 현실적으로 불가능.
-                                </div>
-                            </div>
-                            <div class="trouble-section">
-                                <span class="trouble-label sol">Solution</span>
-                                <div class="trouble-text">
-                                    • <strong>Synthetic Data:</strong> Blender 3D 툴로 다양한 기상(비/안개), 조도 환경의 가상 데이터를 생성<br>
-                                    • <strong>Result:</strong> 가상 데이터 학습 모델을 실제 환경에 적용 시 90% 이상의 높은 검출률 달성
-                                </div>
-                            </div>
+                        <div class="step-content">
+                            <div class="step-title">투영 왜곡(Perspective Bias)</div>
+                            <p class="step-desc">• 카메라 설치 각도에 따른 원근 왜곡으로 인해 이미지 하단과 상단의 실제 거리가 다르게 계산됨</p>
+                            <div class="step-title">데이터 간겅성 저하</div>
+                            <p class="step-desc">• 활주로 같은 특수한 환경이나 테스트 환경에 맞게 데이터를 생성해야 해당 환경에 맞는 정확도를 달성할 수 있음, 부족한 데이터셋을 Blender와 Unity를 통해 다양한 환경의 데이터를 시간 내에 많은 양을 생성하여 실제 데이터셋이랑 융합해서 학습</p>
                         </div>
                     </div>
+
+                    <div class="step-card">
+                        <div class="step-header header-sol"><i class="fas fa-check-circle"></i> 해결방안</div>
+                        <div class="step-img-box">
+                            <img src="./assets/images/falcon_solution_3-1.png"  alt="Solution Result">
+                            <img src="./assets/images/falcon_solution_3-2.gif"  alt="Solution Result">
+                        </div>
+                        <div class="step-content">
+                            <div class="step-title">Homography 변환 적용</div>
+                            <p class="step-desc">4개 지점의 ArUco 마커를 기준으로 투영 행렬을 계산하여 픽셀 좌표를 실제 미터(m) 단위로 변환 (오차 ±0.5m 이내)</p>
+                            <div class="step-title">Blender 합성 데이터 생성</div>
+                            <p class="step-desc">테스트 시 다수 객체 환경에서도 90% 이상의 검출률 달성</p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -714,7 +705,7 @@
             <h2 class="slide-header">04. Visual SLAM Basic (개인 연구)</h2>
             <div class="split-layout">
                 <div class="left-panel">
-                    <img src="./assets/images/project_slam.gif" class="project-img" onerror="this.src='https://via.placeholder.com/400x300?text=Visual+SLAM+Simulation'">
+                    <img src="./assets/images/project_rtamap.gif" class="project-img" onerror="this.src='https://via.placeholder.com/400x300?text=Visual+SLAM+Simulation'">
                     <div class="meta-box">
                         <div class="meta-row"><span class="meta-label">Type</span> <span class="meta-value">Personal Study</span></div>
                         <div class="tag-container">
@@ -722,9 +713,10 @@
                         </div>
                     </div>
                     <div class="intent-box">
-                        <div class="intent-title">Project Intent</div>
                         <p class="intent-text">
-                            단일 2D LiDAR 사용 시 특징점이 부족한 긴 복도나 유리 환경에서 발생하는 매핑 실패(Drift) 현상을 극복하기 위해 Visual SLAM(RGB-D) 기술을 도입하고 하드웨어 셋업부터 내비게이션 연동까지 전체 프로세스를 검증
+                            2D LiDAR 기반 SLAM이 가진 기하학적 정보 의존성(특징점 부족 구간에서의 오차)을 보완하기 위해 
+                            <strong>시각 정보(Appearance-based)를 활용한 Visual SLAM</strong>을 도입. 
+                            RGB-D 카메라 하드웨어 통합부터 다중 센서 데이터 퓨전을 통한 SLAM 안정성 향상 과정을 실증함.
                         </p>
                     </div>
                 </div>
@@ -734,21 +726,27 @@
                     
                     <div class="role-grid two-cols">
                         <div class="role-card">
-                            <div class="role-img-area">
-                                <img src="https://via.placeholder.com/300x180?text=Sensor+Fusion" alt="Sensor Fusion">
+                             <div class="role-img-area" style="height: 32.5%; border-bottom: 1px solid #eee;">
+                                <img src="./assets/images/rtamap_role_1-1.png" alt="Jira Board">
                             </div>
+                            <div class="role-img-area" style="height: 32.5%;">
+                                <img src="./assets/images/rtamap_role_1-2.png" alt="Sprint List">
+                            </div> 
                             <div class="role-text-area">
                                 <div class="role-title">1. Sensor Fusion & Setup</div>
-                                <p class="role-desc">Orbbec Astra 카메라 장착 및 URDF 모델링을 통해 센서 간 TF 트리를 구성하고 RTAB-Map으로 LiDAR와 카메라 데이터를 융합하여 강인한 매핑 구현</p>
-                            </div>
+                                    <p class="role-desc">Orbbec Astra 카메라의 URDF 모델링 및 가우시안 노이즈 모델 적용. 센서 간 정확한 TF(Transform) 트리를 구성하여 LiDAR-Visual-Odom 데이터 간의 이질성 최소화</p>
+                                </div>
                         </div>
                         <div class="role-card">
-                            <div class="role-img-area">
-                                <img src="https://via.placeholder.com/300x180?text=Odom+Tuning" alt="Troubleshooting">
+                            <div class="role-img-area" style="height: 32.5%; border-bottom: 1px solid #eee;">
+                                <img src="./assets/images/rtamap_role_2-1.png" alt="Jira Board">
                             </div>
+                            <div class="role-img-area" style="height: 32.5%;">
+                                <img src="./assets/images/rtamap_role_2-2.png" alt="Sprint List">
+                            </div> 
                             <div class="role-text-area">
                                 <div class="role-title">2. Troubleshooting: Drift</div>
-                                <p class="role-desc"><strong>Problem:</strong> 급격한 회전 시 Visual Odom 실패.<br><strong>Solution:</strong> Wheel + LiDAR + Visual 데이터를 모두 융합하도록 파라미터를 튜닝하여 회전 오차 최소화</p>
+                                <p class="role-desc"><strong>Problem:</strong> 특징점 부족 구간에서 Odometry Drift 발생. <br><strong>Solution:</strong> RTAB-Map의 메모리 관리 파라미터와 LiDAR/Visual 가중치를 튜닝하여, 시각적 특징점을 활용한 강인한 Loop Closure 및 최적화 성공</p>
                             </div>
                         </div>
                     </div>
